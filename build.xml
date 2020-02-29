@@ -21,7 +21,7 @@
 <property location="${result.dir}/testclasses" name="result.testclasses.dir"/>
 
 
--<path id="NecessaryLibraries">
+<path id="NecessaryLibraries">
 
 <pathelement location="./UsedLibraries/junit-4.12.jar"/>
 
@@ -32,11 +32,10 @@
 
 <!--<pathelement location="./UsedLibraries/jacocoant.jar"/>-->
 
-
 </path>
 
 
--<target name="compile">
+<target name="compile">
 
 <mkdir dir="${result.javaclasses.dir}"/>
 
@@ -45,12 +44,12 @@
 </target>
 
 
--<target name="compile-testcases" depends="compile">
+<target name="compile-testcases" depends="compile">
 
 <mkdir dir="${result.testclasses.dir}"/>
 
 
--<javac includeantruntime="false" debug="true" destdir="${result.testclasses.dir}" srcdir="${src.test.dir}">
+<javac includeantruntime="false" debug="true" destdir="${result.testclasses.dir}" srcdir="${src.test.dir}">
 
 
 -<classpath>
@@ -66,16 +65,16 @@
 </target>
 
 
--<target name="test" depends="compile-testcases">
+<target name="test" depends="compile-testcases">
 
 <!--fork : each test will run in its own JVM (to seperate test cases)-->
 
 
 
--<junit fork="true" haltonfailure="true" printsummary="true">
+<junit fork="true" haltonfailure="true" printsummary="true">
 
 
--<classpath>
+<classpath>
 
 <path refid="NecessaryLibraries"/>
 
@@ -88,10 +87,10 @@
 <formatter usefile="false" type="brief"/>
 
 
--<batchtest>
+<batchtest>
 
 
--<fileset dir="${result.testclasses.dir}">
+<fileset dir="${result.testclasses.dir}">
 
 <include name="**/*Test.class"/>
 
