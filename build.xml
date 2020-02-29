@@ -10,7 +10,7 @@
 
 <project default="compile">
 
-<property location="./JavaApplication4/source/add" name="src.java.dir"/>
+<property location="./JavaApplication4/src/add" name="src.java.dir"/>
 
 <property location="./JavaApplication4/test/testing" name="src.test.dir"/>
 
