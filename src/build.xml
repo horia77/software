@@ -1,16 +1,98 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?xml version="1.0"?>
 
-<property name="src.java.dir" location="./JavaApplication4\src\add" />
-<property name="src.test.dir" location="./JavaApplication4\test\testing " />
-<property name="result.dir" location="./target" />
-<property name="result.javaclasses.dir" location="${result.dir}/classes" />
-<property name="result.testclasses.dir" location="${result.dir}/testclasses" />
+-<project default="compile">
 
-<root>
-    
-</root>
+<property location="./JavaApplication4/source/add" name="src.java.dir"/>
+
+<property location="./JavaApplication4/Test/testing" name="src.test.dir"/>
+
+<property location="./target" name="result.dir"/>
+
+<property location="${result.dir}/classes" name="result.javaclasses.dir"/>
+
+<property location="${result.dir}/testclasses" name="result.testclasses.dir"/>
+
+
+-<path id="NecessaryLibraries">
+
+<pathelement location="./Libraries/junit-4.12.jar"/>
+
+<!--matcher-->
+
+
+<pathelement location="./Libraries/hamcrest-core-1.3.jar"/>
+
+<!--<pathelement location="./UsedLibraries/jacocoant.jar"/>-->
+
+
+</path>
+
+
+-<target name="compile">
+
+<mkdir dir="${result.javaclasses.dir}"/>
+
+<javac includeantruntime="false" debug="true" destdir="${result.javaclasses.dir}" srcdir="${src.java.dir}"> </javac>
+
+</target>
+
+
+-<target name="compile-testcases" depends="compile">
+
+<mkdir dir="${result.testclasses.dir}"/>
+
+
+-<javac includeantruntime="false" debug="true" destdir="${result.testclasses.dir}" srcdir="${src.test.dir}">
+
+
+-<classpath>
+
+<path refid="NecessaryLibraries"/>
+
+<pathelement location="${result.javaclasses.dir}"/>
+
+</classpath>
+
+</javac>
+
+</target>
+
+
+-<target name="test" depends="compile-testcases">
+
+<!--fork : each test will run in its own JVM (to seperate test cases)-->
+
+
+
+-<junit fork="true" haltonfailure="true" printsummary="true">
+
+
+-<classpath>
+
+<path refid="NecessaryLibraries"/>
+
+<pathelement location="${result.javaclasses.dir}"/>
+
+<pathelement location="${result.testclasses.dir}"/>
+
+</classpath>
+
+<formatter usefile="false" type="brief"/>
+
+
+-<batchtest>
+
+
+-<fileset dir="${result.testclasses.dir}">
+
+<include name="**/*Test.class"/>
+
+</fileset>
+
+</batchtest>
+
+</junit>
+
+</target>
+
+</project>
